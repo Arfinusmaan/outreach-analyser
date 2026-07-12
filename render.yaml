@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: owners-desk-app
+    env: node
+    region: ohio # You can change this if needed
+    buildCommand: npm --prefix frontend install && npm --prefix frontend run build && npm --prefix backend install
+    startCommand: cd backend && node index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false # Render will prompt you to enter this securely
+      - key: CLERK_PUBLISHABLE_KEY
+        sync: false # Render will prompt you to enter this securely
+      - key: CLERK_SECRET_KEY
+        sync: false # Render will prompt you to enter this securely
+      - key: VITE_CLERK_PUBLISHABLE_KEY
+        sync: false # Render will prompt you to enter this securely
