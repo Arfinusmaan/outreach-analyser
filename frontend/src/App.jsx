@@ -6,6 +6,7 @@ const SMS_CHAR_LIMIT = 400;
 
 export default function App() {
   const [mode, setMode]       = useState('generate'); // 'generate' | 'rate'
+  const [channel, setChannel] = useState('SMS');
   const [company, setCompany] = useState('');
   const [reviews, setReviews] = useState('');
   const [details, setDetails] = useState('');
@@ -35,6 +36,7 @@ export default function App() {
         },
         body: JSON.stringify({
           company: company.trim(),
+          channel: channel,
           reviews: reviews.trim() || null,
           details: details.trim() || null,
           draft: mode === 'rate' ? draft.trim() : null,
@@ -97,7 +99,7 @@ export default function App() {
               onClick={() => { setMode('generate'); setResult(null); setError(null); }}
               type="button"
             >
-              ✍️ Write SMS
+              ✍️ Write Message
             </button>
             <button
               id="mode-rate"
@@ -105,7 +107,7 @@ export default function App() {
               onClick={() => { setMode('rate'); setResult(null); setError(null); }}
               type="button"
             >
-              📊 Rate My Draft
+              📊 Rate Draft
             </button>
           </div>
 
@@ -196,7 +198,7 @@ export default function App() {
                   Owner is reading…
                 </>
               ) : mode === 'generate' ? (
-                '✍️ Write Me a 9.5 SMS'
+                '✍️ Write Me a 9.5 Message'
               ) : (
                 '📊 Rate This Draft'
               )}
