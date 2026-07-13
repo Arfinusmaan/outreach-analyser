@@ -128,6 +128,22 @@ export default function App() {
               />
             </div>
 
+            {/* Channel */}
+            <div className="field">
+              <label className="field-label" htmlFor="channel-select">
+                Outreach Channel
+              </label>
+              <select
+                id="channel-select"
+                value={channel}
+                onChange={e => setChannel(e.target.value)}
+                style={{ width: '100%', padding: '0.75rem', borderRadius: '4px', border: '1px solid #333', background: '#222', color: '#fff', fontSize: '1rem', marginTop: '0.5rem' }}
+              >
+                <option value="SMS">SMS (Text Message)</option>
+                <option value="Instagram DM">Instagram DM</option>
+              </select>
+            </div>
+
             {/* Reviews */}
             <div className="field">
               <label className="field-label" htmlFor="reviews-field">
