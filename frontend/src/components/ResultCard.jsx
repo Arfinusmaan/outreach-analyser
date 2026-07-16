@@ -93,8 +93,9 @@ export default function ResultCard({ result, mode }) {
         )}
         <div className="rating-info">
           {verdict && <div className="rating-verdict">{verdict}</div>}
-          <div className="rating-mode-badge">
-            {isGenerateMode ? '✍️ Generate mode' : `📊 Rate mode${rating !== null ? ` · ${rating.toFixed(1)}/10` : ''}`}
+          <div className="rating-mode-badge" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <span>{isGenerateMode ? '✍️ Generate mode' : `📊 Rate mode${rating !== null ? ` · ${rating.toFixed(1)}/10` : ''}`}</span>
+            <span style={{ fontSize: '0.7rem', padding: '0.1rem 0.35rem', background: '#333', color: '#94a3b8', borderRadius: '3px', fontWeight: '500' }}>AI SIMULATED</span>
           </div>
         </div>
       </div>
@@ -102,7 +103,10 @@ export default function ResultCard({ result, mode }) {
       {/* Reply simulation (rate mode only) */}
       {reply_status && statusConfig && (
         <div className="reply-block">
-          <div className="reply-block-title">Owner's Reply</div>
+          <div className="reply-block-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span>Owner's Reply</span>
+            <span style={{ fontSize: '0.7rem', padding: '0.1rem 0.35rem', background: '#333', color: '#94a3b8', borderRadius: '3px', fontWeight: '500' }}>AI SIMULATION</span>
+          </div>
           <div className={`reply-status-label ${statusConfig.className}`}>
             {statusConfig.label}
           </div>
@@ -146,8 +150,28 @@ export default function ResultCard({ result, mode }) {
       {suggested_sms && (
         <div className="sms-block">
           <div className="sms-block-header">
-            <div className="sms-block-title">
-              {isGenerateMode ? '📱 Your SMS' : '📱 Suggested SMS'}
+            <div className="sms-block-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+              <span>{isGenerateMode ? '📱 Your SMS' : '📱 Suggested SMS'}</span>
+              {result.suggested_sms_char_count !== undefined && result.suggested_sms_char_count !== null && (
+                <span 
+                  className="char-count-badge" 
+                  style={{ 
+                    fontSize: '0.72rem', 
+                    padding: '0.15rem 0.4rem', 
+                    background: '#222', 
+                    border: `1px solid ${result.suggested_sms_char_count > 300 ? '#ef4444' : '#333'}`,
+                    borderRadius: '4px', 
+                    color: result.suggested_sms_char_count > 300 ? '#ef4444' : '#10b981', 
+                    fontWeight: 'bold',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.25rem'
+                  }}
+                  title="Programmatically calculated on final message including compliance footer"
+                >
+                  {result.suggested_sms_char_count} chars {result.suggested_sms_char_count > 300 ? '⚠️ Over Ceiling' : '✓ Valid'}
+                </span>
+              )}
             </div>
             <CopyButton text={suggested_sms} />
           </div>
